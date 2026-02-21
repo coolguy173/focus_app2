@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard — Focus Battle{% endblock %}
+{% set body_class = 'page-dashboard' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="dash-bg" id="dash-bg">
+  <div class="dash-grain"></div>
+
+  <nav class="dash-nav">
+    <div class="nav-brand">
+      <span class="brand-mark">◆</span>
+      <span class="brand-name">Focus<em>Battle</em></span>
+    </div>
+    <div class="nav-links">
+      <a href="/leaderboard">Leaderboard</a>
+      <a href="/settings">Themes</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <main class="dash-main">
+    <!-- Greeting -->
+    <div class="dash-greeting">
+      <p class="greeting-sub">Welcome back,</p>
+      <h1 class="greeting-name">{{ user.username }}</h1>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-box">
+        <span class="stat-num">{{ user.wins }}</span>
+        <span class="stat-lbl">Wins</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">{{ user.losses }}</span>
+        <span class="stat-lbl">Losses</span>
+      </div>
+      <div class="stat-box accent">
+        <span class="stat-num">{{ user.streak }}🔥</span>
+        <span class="stat-lbl">Streak</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">{{ user.best_streak }}</span>
+        <span class="stat-lbl">Best Streak</span>
+      </div>
+    </div>
+
+    <!-- Duration Picker -->
+    <div class="duration-section">
+      <p class="section-label">SELECT DURATION</p>
+      <div class="duration-pills">
+        <button class="dur-pill" data-min="15">15 min</button>
+        <button class="dur-pill" data-min="20">20 min</button>
+        <button class="dur-pill active" data-min="25">25 min</button>
+        <button class="dur-pill" data-min="30">30 min</button>
+        <button class="dur-pill" data-min="45">45 min</button>
+        <button class="dur-pill" data-min="60">60 min</button>
+      </div>
+    </div>
+
+    <!-- Start Button -->
+    <a href="/timer?duration=25" class="start-btn" id="start-btn">
+      <span>START BATTLE</span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <!-- Theme preview strip -->
+    <div class="theme-strip">
+      <p class="section-label">ACTIVE THEME</p>
+      <div class="theme-thumbs" id="theme-thumbs">
+        <div class="thumb active" data-theme="theme-lofi" style="background-image:url('/static/images/theme-lofi.jpg')" title="Lo-Fi"></div>
+        <div class="thumb" data-theme="theme-porsche" style="background-image:url('/static/images/theme-porsche.jpg')" title="Porsche"></div>
+        <div class="thumb" data-theme="theme-f1" style="background-image:url('/static/images/theme-f1.jpg')" title="F1"></div>
+        <div class="thumb" data-theme="theme-nyc" style="background-image:url('/static/images/theme-nyc.jpg')" title="NYC"></div>
+        <div class="thumb" data-theme="theme-liquid" style="background-image:url('/static/images/theme-liquid.jpg')" title="Liquid"></div>
+        <div class="thumb" data-theme="theme-dunes" style="background-image:url('/static/images/dunes.jpg')" title="Dunes"></div>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

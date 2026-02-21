@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Battle — Focus Battle{% endblock %}
+{% set body_class = 'page-timer' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/timer.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="timer-bg" id="timer-bg">
+  <div class="timer-grain"></div>
+  <div class="timer-vignette"></div>
+
+  <!-- Top bar: minimal -->
+  <div class="timer-topbar">
+    <a href="/dashboard" class="back-link" id="back-link">← Exit</a>
+    <div class="sound-toggle" id="sound-toggle" title="Toggle ambient sound">
+      <span id="sound-icon">♪</span>
+      <span id="sound-label">RAIN</span>
+    </div>
+  </div>
+
+  <!-- Core timer UI -->
+  <div class="timer-core">
+    <p class="fighter-greeting" id="fighter-greeting">You've got this, <strong>{{ user.username }}</strong></p>
+
+    <div class="timer-ring" id="timer-ring">
+      <svg class="ring-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <circle class="ring-track" cx="150" cy="150" r="130"/>
+        <circle class="ring-progress" id="ring-progress" cx="150" cy="150" r="130"/>
+      </svg>
+      <div class="timer-center">
+        <div class="timer-digits" id="timer-digits">{{ duration }}:00</div>
+        <div class="timer-state" id="timer-state">READY</div>
+      </div>
+    </div>
+
+    <p class="harvey-quote" id="harvey-quote">"{{ quote }}"</p>
+
+    <div class="timer-controls">
+      <button class="ctrl-btn ctrl-start" id="ctrl-start">START</button>
+      <button class="ctrl-btn ctrl-abandon hidden" id="ctrl-abandon">Abandon (loss)</button>
+    </div>
+  </div>
+
+  <!-- Result overlay -->
+  <div class="result-overlay hidden" id="result-overlay">
+    <div class="result-box" id="result-box">
+      <div class="result-glyph" id="result-glyph">◆</div>
+      <h2 class="result-heading" id="result-heading">Victory.</h2>
+      <p class="result-sub" id="result-sub">You stayed locked in.</p>
+      <div class="result-stats">
+        <div class="rs"><strong id="r-wins">0</strong><span>Wins</span></div>
+        <div class="rs"><strong id="r-streak">0</strong><span>Streak</span></div>
+        <div class="rs"><strong id="r-losses">0</strong><span>Losses</span></div>
+      </div>
+      <!-- Break offer (shown on win) -->
+      <div class="break-offer hidden" id="break-offer">
+        <p>Take a 5-minute break?</p>
+        <div class="break-btns">
+          <button class="break-yes" id="break-yes">Yes, 5 min break</button>
+          <button class="break-no" id="break-no">Back to dashboard</button>
+        </div>
+      </div>
+      <!-- Retry (shown on loss) -->
+      <div class="retry-offer hidden" id="retry-offer">
+        <button class="ctrl-btn ctrl-start" id="retry-btn">Try Again</button>
+        <a href="/dashboard" class="back-dash">Back to dashboard</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const DURATION_MINUTES = {{ duration }};
+</script>
+<script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+{% endblock %}

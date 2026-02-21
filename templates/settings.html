@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Themes — Focus Battle{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="settings-bg" id="settings-bg">
+  <div class="settings-grain"></div>
+
+  <nav class="dash-nav">
+    <div class="nav-brand">
+      <span class="brand-mark">◆</span>
+      <span class="brand-name">Focus<em>Battle</em></span>
+    </div>
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <main class="settings-main">
+    <div class="settings-header">
+      <p class="settings-eyebrow">PERSONALIZE</p>
+      <h1 class="settings-title">Choose Your Arena</h1>
+      <p class="settings-sub">This background will appear on your timer page.</p>
+    </div>
+
+    <div class="themes-grid">
+      <div class="theme-card active" data-theme="theme-lofi">
+        <div class="theme-preview" style="background-image:url('/static/images/theme-lofi.jpg')"></div>
+        <div class="theme-info">
+          <span class="theme-name">Lo-Fi Study</span>
+          <span class="theme-check">✓</span>
+        </div>
+      </div>
+      <div class="theme-card" data-theme="theme-porsche">
+        <div class="theme-preview" style="background-image:url('/static/images/theme-porsche.jpg')"></div>
+        <div class="theme-info">
+          <span class="theme-name">Porsche Dark</span>
+          <span class="theme-check">✓</span>
+        </div>
+      </div>
+      <div class="theme-card" data-theme="theme-f1">
+        <div class="theme-preview" style="background-image:url('/static/images/theme-f1.jpg')"></div>
+        <div class="theme-info">
+          <span class="theme-name">F1 Night Race</span>
+          <span class="theme-check">✓</span>
+        </div>
+      </div>
+      <div class="theme-card" data-theme="theme-nyc">
+        <div class="theme-preview" style="background-image:url('/static/images/theme-nyc.jpg')"></div>
+        <div class="theme-info">
+          <span class="theme-name">NYC Skyline</span>
+          <span class="theme-check">✓</span>
+        </div>
+      </div>
+      <div class="theme-card" data-theme="theme-liquid">
+        <div class="theme-preview" style="background-image:url('/static/images/theme-liquid.jpg')"></div>
+        <div class="theme-info">
+          <span class="theme-name">Liquid Metal</span>
+          <span class="theme-check">✓</span>
+        </div>
+      </div>
+      <div class="theme-card" data-theme="theme-dunes">
+        <div class="theme-preview" style="background-image:url('/static/images/dunes.jpg')"></div>
+        <div class="theme-info">
+          <span class="theme-name">Black Dunes</span>
+          <span class="theme-check">✓</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-save">
+      <button class="save-btn" id="save-theme-btn">Save Theme →</button>
+      <p class="save-msg hidden" id="save-msg">✓ Saved!</p>
+    </div>
+  </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+{% endblock %}

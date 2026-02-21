@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Login — Focus Battle{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="auth-bg">
+  <div class="auth-grain"></div>
+  <div class="auth-container">
+    <div class="auth-left">
+      <div class="auth-brand">
+        <span class="brand-mark">◆</span>
+        <span class="brand-name">Focus<em>Battle</em></span>
+      </div>
+      <div class="auth-headline">
+        <h1>The arena<br/>awaits.</h1>
+        <p>25 minutes of war against distraction.<br/>No exits. No mercy.</p>
+      </div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-card">
+        <h2>Sign in</h2>
+        {% if error %}<div class="auth-error">{{ error }}</div>{% endif %}
+        <form method="POST" action="/login">
+          <div class="field">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="your_handle" required autocomplete="username" />
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="••••••••" required autocomplete="current-password" />
+          </div>
+          <button type="submit" class="auth-btn">Enter the Arena →</button>
+        </form>
+        <p class="auth-switch">New here? <a href="/signup">Create a fighter</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

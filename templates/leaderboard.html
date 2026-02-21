@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Leaderboard — Focus Battle{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="lb-bg">
+  <div class="lb-grain"></div>
+
+  <nav class="dash-nav">
+    <div class="nav-brand">
+      <span class="brand-mark">◆</span>
+      <span class="brand-name">Focus<em>Battle</em></span>
+    </div>
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <main class="lb-main">
+    <div class="lb-header">
+      <p class="lb-eyebrow">HALL OF FOCUS</p>
+      <h1 class="lb-title">Leaderboard</h1>
+      <p class="lb-sub">The fighters who showed up.</p>
+    </div>
+
+    <div class="lb-table-wrap">
+      <table class="lb-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Fighter</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Streak</th>
+            <th>Best</th>
+            <th>Win Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          {% set total = user.wins + user.losses %}
+          {% set wr = ((user.wins / total * 100) | round(1)) if total > 0 else 0 %}
+          <tr class="{% if user.username == current_user.username %}lb-me{% endif %}">
+            <td class="lb-rank">
+              {% if loop.index == 1 %}🥇
+              {% elif loop.index == 2 %}🥈
+              {% elif loop.index == 3 %}🥉
+              {% else %}<span class="rank-num">{{ loop.index }}</span>{% endif %}
+            </td>
+            <td class="lb-name">{{ user.username }}{% if user.username == current_user.username %} <span class="you-tag">YOU</span>{% endif %}</td>
+            <td class="lb-wins">{{ user.wins }}</td>
+            <td class="lb-losses">{{ user.losses }}</td>
+            <td class="lb-streak">{{ user.streak }}{% if user.streak >= 3 %}🔥{% endif %}</td>
+            <td class="lb-best">{{ user.best_streak }}</td>
+            <td class="lb-wr">{{ wr }}%</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="7" class="lb-empty">No battles recorded yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+{% endblock %}
